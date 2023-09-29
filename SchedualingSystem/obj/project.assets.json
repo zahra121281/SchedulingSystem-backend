@@ -3350,11 +3350,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\git\\SchedualingSystem\\SchedualingSystem\\SchedualingSystem.csproj",
+      "projectUniqueName": "C:\\git\\SchedulingSystem-backend\\SchedualingSystem\\SchedualingSystem.csproj",
       "projectName": "SchedualingSystem",
-      "projectPath": "C:\\git\\SchedualingSystem\\SchedualingSystem\\SchedualingSystem.csproj",
+      "projectPath": "C:\\git\\SchedulingSystem-backend\\SchedualingSystem\\SchedualingSystem.csproj",
       "packagesPath": "C:\\Users\\ASUS\\.nuget\\packages\\",
-      "outputPath": "C:\\git\\SchedualingSystem\\SchedualingSystem\\obj\\",
+      "outputPath": "C:\\git\\SchedulingSystem-backend\\SchedualingSystem\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

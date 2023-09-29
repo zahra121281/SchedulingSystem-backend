@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "2Kb3Odr4yHSsCo9vcjl78wYxpDqww4yGD2Sz4BQWUOW4Rn7n+ZzgI7donJ4IL09NU+jC9ZNbrv76ZxSvAhqefQ==",
+  "dgSpecHash": "JC+dTGpkrHjKAJeRNuwI0fQWlKrcwy/+geZzyyOYXKq35Ld18OGdbSYacIXcqIG+iLksYw67SNY1AHVmIWDyQw==",
   "success": true,
-  "projectFilePath": "C:\\git\\SchedualingSystem\\SchedualingSystem\\SchedualingSystem.csproj",
+  "projectFilePath": "C:\\git\\SchedulingSystem-backend\\SchedualingSystem\\SchedualingSystem.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ASUS\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\ASUS\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",
