@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http.HttpResults;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using SchedualingSystem.Models.DTO;
 using SchedualingSystem.Models.DTO.Request;
@@ -9,6 +10,7 @@ using System.Net;
 
 namespace SchedualingSystem.AppController
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class SchedualingSystemController : ControllerBase
@@ -313,3 +315,6 @@ namespace SchedualingSystem.AppController
 
     }
 }
+
+
+//https://www.niceonecode.com/blog/85/authentication-and-authorization-in-asp.net-6.0-api-with-jwt-using-identity-framework

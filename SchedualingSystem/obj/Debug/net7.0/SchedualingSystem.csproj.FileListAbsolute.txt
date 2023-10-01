@@ -150,3 +150,10 @@ C:\git\SchedulingSystem-backend\SchedualingSystem\obj\Debug\net7.0\refint\Schedu
 C:\git\SchedulingSystem-backend\SchedualingSystem\obj\Debug\net7.0\SchedualingSystem.pdb
 C:\git\SchedulingSystem-backend\SchedualingSystem\obj\Debug\net7.0\SchedualingSystem.genruntimeconfig.cache
 C:\git\SchedulingSystem-backend\SchedualingSystem\obj\Debug\net7.0\ref\SchedualingSystem.dll
+C:\git\SchedulingSystem-backend\SchedualingSystem\bin\Debug\net7.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\git\SchedulingSystem-backend\SchedualingSystem\bin\Debug\net7.0\Microsoft.AspNetCore.Cryptography.Internal.dll
+C:\git\SchedulingSystem-backend\SchedualingSystem\bin\Debug\net7.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+C:\git\SchedulingSystem-backend\SchedualingSystem\bin\Debug\net7.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+C:\git\SchedulingSystem-backend\SchedualingSystem\bin\Debug\net7.0\Microsoft.Extensions.Identity.Core.dll
+C:\git\SchedulingSystem-backend\SchedualingSystem\bin\Debug\net7.0\Microsoft.Extensions.Identity.Stores.dll
+C:\git\SchedulingSystem-backend\SchedualingSystem\bin\Debug\net7.0\Microsoft.Extensions.Options.dll
