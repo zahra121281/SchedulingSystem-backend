@@ -24,7 +24,7 @@ namespace SchedualingSystem.Service
             ValiadationModel.ValidateModel(userRequest);
 
             var user = userRequest.ToUser();
-            user.Id = Guid.NewGuid(); 
+            user.Id = userRequest.UserId; 
             this._db.Users.Add(user);
             await _db.SaveChangesAsync();
             //await Users.Add( user );

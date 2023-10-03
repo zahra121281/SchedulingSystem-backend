@@ -6,6 +6,7 @@ namespace SchedualingSystem.Interfaces
     {
         Task<LoginResponseViewModel> LoginAsync(LoginViewModel loginViewModel);
         Task<ResponseViewModel> RegisterAsync(RegisterViewModel registerViewModel);
+        Task<ResponseViewModel> DeleteAsync(Guid id );
         Task<ResponseViewModel> RegisterAdminAsync(RegisterViewModel registerViewModel);
     }
 }
