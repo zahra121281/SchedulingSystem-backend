@@ -35,6 +35,16 @@ namespace SchedualingSystem.Controller
             return BadRequest($"status : {result.Status} Message: {result.Message}");
         }
 
+        [HttpDelete("register/{Id:guid}")]
+        public async Task<IActionResult> Delete(Guid Id )
+        {
+            var result = await _identityService.DeleteAsync(Id);
+            var s = result.Status;
+            if (result.Status != "Error")
+                return Ok(result);
+            return BadRequest($"status : {result.Status} Message: {result.Message}");
+        }
+
         [HttpPost("register-admin")]
         public async Task<IActionResult> RegisterAdmin([FromBody] RegisterViewModel model )
         {

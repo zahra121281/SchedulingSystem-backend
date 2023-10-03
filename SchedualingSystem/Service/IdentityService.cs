@@ -72,12 +72,12 @@ namespace SchedualingSystem.Service
             {
                 Email = registerViewModel.Email,
                 SecurityStamp = Guid.NewGuid().ToString(),
-                UserName = registerViewModel.Email 
+                UserName = registerViewModel.Email ,
+                Id = Guid.NewGuid().ToString(),
             };
-          
             var result = await _userManager.CreateAsync(user, registerViewModel.Password);
             if (result.Succeeded)
-                return new ResponseViewModel { Status = "Success", Message = "User created successfully!" };
+                return new ResponseViewModel { Status = "Success", Message = "User created successfully!" , UserId = user.Id };
             else
             {
                 StringBuilder Errors = new StringBuilder();
@@ -88,22 +88,17 @@ namespace SchedualingSystem.Service
             
         }
 
-        public async Task<ResponseViewModel> DeleteAsync(RegisterViewModel registerViewModel)
+        public async Task<ResponseViewModel> DeleteAsync(Guid id )
         {
 
-            var userExists = await _userManager.FindByEmailAsync(registerViewModel.Email);
-            if (userExists != null)
-                return new ResponseViewModel { Status = "Error", Message = "User already exists!" };
+            var userExists = await _userManager.FindByIdAsync(id.ToString() );
+            if (userExists == null)
+                return new ResponseViewModel { Status = "Error", Message = "User doesn't exists!" };
 
-            IdentityUser user = new()
-            {
-                Email = registerViewModel.Email,
-                SecurityStamp = Guid.NewGuid().ToString(),
-                UserName = registerViewModel.Email
-            };
-            var result = await _userManager.CreateAsync(user, registerViewModel.Password);
+
+            var result = await _userManager.DeleteAsync(userExists); 
             if (result.Succeeded)
-                return new ResponseViewModel { Status = "Success", Message = "User created successfully!" };
+                return new ResponseViewModel { Status = "Success", Message = "User deleted successfully!" };
             else
             {
                 StringBuilder Errors = new StringBuilder();
@@ -114,7 +109,7 @@ namespace SchedualingSystem.Service
 
         }
 
-
+        
         public async Task<ResponseViewModel> RegisterAdminAsync(RegisterViewModel registerViewModel)
         {
             var userExists = await _userManager.FindByNameAsync(registerViewModel.Email);
@@ -125,7 +120,8 @@ namespace SchedualingSystem.Service
             {
                 Email = registerViewModel.Email,
                 SecurityStamp = Guid.NewGuid().ToString(),
-                UserName = registerViewModel.Email
+                UserName = registerViewModel.Email , 
+                Id = Guid.NewGuid().ToString()
             };
             var result = await _userManager.CreateAsync(user, registerViewModel.Password);
             if (!result.Succeeded)
@@ -149,7 +145,7 @@ namespace SchedualingSystem.Service
             {
                 await _userManager.AddToRoleAsync(user, UserRoles.User.ToString());
             }
-            return new ResponseViewModel { Status = "Success", Message = "User created successfully!" };
+            return new ResponseViewModel { Status = "Success", Message = "User created successfully!" , UserId = user.Id  };
         }
 
         private JwtSecurityToken GetToken(List<Claim> authClaims)
