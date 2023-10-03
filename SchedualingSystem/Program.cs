@@ -50,7 +50,7 @@ builder.Services.AddScoped<TaskService>();
 builder.Services.AddScoped<IIdentityService, IdentityService>();
 builder.Services.Configure<JWTAppSettings>(builder.Configuration.GetSection("JWTAppSettings"));
 var app = builder.Build();
-
+app.UseAuthentication(); 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

@@ -28,15 +28,20 @@ namespace SchedualingSystem.Controller
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterViewModel model)
         {
-            var result = await _identityService.RegisterAsync(model);   
-            return Ok(result);
+            var result = await _identityService.RegisterAsync(model);
+            var s = result.Status;
+            if (result.Status != "Error")
+                return Ok(result);
+            return BadRequest($"status : {result.Status} Message: {result.Message}");
         }
 
         [HttpPost("register-admin")]
         public async Task<IActionResult> RegisterAdmin([FromBody] RegisterViewModel model )
         {
             var result = await _identityService.RegisterAdminAsync(model);  
-            return Ok(result);  
+            if( result.Status != "Error")
+                return Ok(result) ;
+            return BadRequest($"status : {result.Status} Message: {result.Message}"); 
         }
     }
 }

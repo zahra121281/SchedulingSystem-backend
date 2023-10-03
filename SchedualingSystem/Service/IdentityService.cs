@@ -9,6 +9,7 @@ using SchedualingSystem.Interfaces;
 using SchedualingSystem.JWTAuthentication;
 using SchedualingSystem.Models.Authentication;
 using SchedualingSystem.Models.Enums;
+using System.ComponentModel;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
@@ -34,7 +35,7 @@ namespace SchedualingSystem.Service
 
         public async Task<LoginResponseViewModel> LoginAsync(LoginViewModel loginViewModel)
         {
-            var user = await _userManager.FindByNameAsync(loginViewModel.Username);
+            var user = await _userManager.FindByNameAsync(loginViewModel.Email);
             if (user != null && await _userManager.CheckPasswordAsync(user, loginViewModel.Password))
             {
                 var userRoles = await _userManager.GetRolesAsync(user);
@@ -63,7 +64,7 @@ namespace SchedualingSystem.Service
 
         public async Task<ResponseViewModel> RegisterAsync(RegisterViewModel registerViewModel)
         {
-            var userExists = await _userManager.FindByNameAsync(registerViewModel.Username);
+            var userExists = await _userManager.FindByNameAsync(registerViewModel.Email);
             if (userExists != null)
                 return new ResponseViewModel { Status = "Error", Message = "User already exists!" };
 
@@ -71,18 +72,52 @@ namespace SchedualingSystem.Service
             {
                 Email = registerViewModel.Email,
                 SecurityStamp = Guid.NewGuid().ToString(),
-                UserName = registerViewModel.Username
+                UserName = registerViewModel.Email 
+            };
+          
+            var result = await _userManager.CreateAsync(user, registerViewModel.Password);
+            if (result.Succeeded)
+                return new ResponseViewModel { Status = "Success", Message = "User created successfully!" };
+            else
+            {
+                StringBuilder Errors = new StringBuilder();
+                foreach (var error in result.Errors)
+                    Errors.Append($"{error.Description }\n");
+                return new ResponseViewModel { Status = "Error", Message = Errors.ToString() };
+            }
+            
+        }
+
+        public async Task<ResponseViewModel> DeleteAsync(RegisterViewModel registerViewModel)
+        {
+
+            var userExists = await _userManager.FindByEmailAsync(registerViewModel.Email);
+            if (userExists != null)
+                return new ResponseViewModel { Status = "Error", Message = "User already exists!" };
+
+            IdentityUser user = new()
+            {
+                Email = registerViewModel.Email,
+                SecurityStamp = Guid.NewGuid().ToString(),
+                UserName = registerViewModel.Email
             };
             var result = await _userManager.CreateAsync(user, registerViewModel.Password);
-            if (!result.Succeeded)
-                return new ResponseViewModel { Status = "Error", Message = "User creation failed! Please check user details and try again." };
+            if (result.Succeeded)
+                return new ResponseViewModel { Status = "Success", Message = "User created successfully!" };
+            else
+            {
+                StringBuilder Errors = new StringBuilder();
+                foreach (var error in result.Errors)
+                    Errors.Append($"{error.Description}\n");
+                return new ResponseViewModel { Status = "Error", Message = Errors.ToString() };
+            }
 
-            return new ResponseViewModel { Status = "Success", Message = "User created successfully!" };
         }
+
 
         public async Task<ResponseViewModel> RegisterAdminAsync(RegisterViewModel registerViewModel)
         {
-            var userExists = await _userManager.FindByNameAsync(registerViewModel.Username);
+            var userExists = await _userManager.FindByNameAsync(registerViewModel.Email);
             if (userExists != null)
                 return new ResponseViewModel { Status = "Error", Message = "User already exists!" };
 
@@ -90,11 +125,16 @@ namespace SchedualingSystem.Service
             {
                 Email = registerViewModel.Email,
                 SecurityStamp = Guid.NewGuid().ToString(),
-                UserName = registerViewModel.Username
+                UserName = registerViewModel.Email
             };
             var result = await _userManager.CreateAsync(user, registerViewModel.Password);
             if (!result.Succeeded)
-                return new ResponseViewModel { Status = "Error", Message = "User creation failed! Please check user details and try again." };
+            {
+                StringBuilder Errors = new StringBuilder();
+                foreach (var error in result.Errors)
+                    Errors.Append($"{error.Description}\n");
+                return new ResponseViewModel { Status = "Error", Message = Errors.ToString() };
+            }
 
             if (!await _roleManager.RoleExistsAsync(UserRoles.Admin.ToString()))
                 await _roleManager.CreateAsync(new IdentityRole(UserRoles.Admin.ToString()));
@@ -119,7 +159,7 @@ namespace SchedualingSystem.Service
             var token = new JwtSecurityToken(
                 issuer: _jWTAppSettings.ValidIssuer,
                 audience: _jWTAppSettings.ValidAudience,
-                expires: DateTime.Now.AddHours(3),
+                expires: DateTime.Now.AddMonths(1) ,
                 claims: authClaims,
                 signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
                 );
